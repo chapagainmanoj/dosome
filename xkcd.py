@@ -1,9 +1,11 @@
 #!/usr/bin/env python
+import os
 import requests
 import json
 import urllib.request
 import subprocess
 
+CURRENT_DIR = os.getcwd()
 
 def get_url(num = None):
     url ='http://xkcd.com/'
@@ -19,11 +21,15 @@ def get_url(num = None):
 #while not url.endswith('#'):
 
 if __name__=='__main__':
-    print(get_url())
+    print('a fresh XKCD dose for you ...')
     res = requests.get(get_url())
-    json_data = json.loads(res.text)
+    print('JSON:\n')
     print(res.content)
-    print (json_data['img'])
+    json_data = json.loads(res.text)
+    print('\n')
+    print("Opening Image ...")
+    img = json_data['img'].split('/').pop()
+    file_path = '{}/{}/{}'.format(CURRENT_DIR,'image',img)
 
-    xkcd, headers = urllib.request.urlretrieve(json_data['img'],filename="/home/mane/pscripts/00.jpg")
-    subprocess.Popen(['/usr/bin/shotwell',"/home/mane/pscripts/00.jpg"])
+    xkcd, headers = urllib.request.urlretrieve(json_data['img'],filename=file_path)
+    subprocess.Popen(['/usr/bin/shotwell',file_path])
