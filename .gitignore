@@ -99,6 +99,7 @@ env.bak/
 venv.bak/
 virtualenvs/
 
+
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -108,7 +109,7 @@ virtualenvs/
 
 # mkdocs documentation
 /site
-
+/image
 # mypy
 .mypy_cache/
 
