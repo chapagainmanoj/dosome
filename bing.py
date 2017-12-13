@@ -1,17 +1,26 @@
-#!/usr/bin/python
-#-*- coding: utf-8 -*-
+#!/usr/bin/env python
 
 import os
-from PIL import Image
 import json
-import requests,urllib
-from bs4 import BeautifulSoup
+import urllib
+import requests
+from PIL import Image
+from datetime import date
+from subprocess import run,PIPE
 
 #area=(1366,1366,768,768) Screen Resolution
 WIDTH = 1366
 HEIGHT = 768
 CURRENT_DIR = os.getcwd()
+TODAY = date.today()
 
+try:
+    raw_ = run(['xdpyinfo | grep dimensions:'], shell=True, stdout=PIPE)
+    dimension = raw_.stdout.split()[1].decode().split('x')
+    dimension = list(map(int,dimension))
+    WIDTH, HEIGHT = dimension
+except:
+    print("Screen size can't extracted")
 
 # Get BingXML file which contains the URL of the Bing Photo of the day
 # idx = Number days previous the present day. 0 means current day, 1 means       yesterday, etc
@@ -44,6 +53,6 @@ if __name__=='__main__':
 
     img = Image.open(image_path)
     new_img = img.resize((WIDTH,HEIGHT), Image.NEAREST)
-    new_img.save("image/bing_wallpaper.jpg")
+    new_img.save("image/{0}.jpg".format(TODAY.isoformat()))
     print("New wallpaper from Bing saved to {}/image/".format(CURRENT_DIR))
     os.system("rm "+ image_path)
