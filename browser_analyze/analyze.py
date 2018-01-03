@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 topN = 20
 
 # Open our file
-with open('hist.txt') as f:
+with open('/home/manoj/moz_hist.txt') as f:
     content = f.readlines()
 # Strip whitespace then split on first occurrence of pipe character
 raw_data = [line.split('|', 1) for line in [x.strip() for x in content]]
