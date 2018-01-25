@@ -34,14 +34,15 @@ if __name__=='__main__':
         os.makedirs(img_dir)
 
     """http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=2&mkt=en-ID"""
-    BingURL = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=2&mkt=en-ID"
+    BingURL = "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=2&mkt=en-ID"
 
     page = requests.get(BingURL)
     data = json.loads(page.text)
     url = data['images'][0]['url']
     img_name = url.split('/')[-1].split('_')[0]
 
-    image_url = '{}/{}.{}'.format('https://www.docx.us/bing',img_name,'jpg')
+    #image_url = '{}/{}.{}'.format('https://www.docx.us/bing',img_name,'jpg')
+    image_url = '{}/{}'.format('https://www.bing.com',url)
 
 
     #image_path= "/home/mane/pscripts/image/bing_today.jpg"
